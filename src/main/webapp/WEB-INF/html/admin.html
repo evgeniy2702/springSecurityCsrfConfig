@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Log in with your account</title>
+</head>
+
+<body>
+<form action="/leave/authentication" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="LogOut">
+</form>
+<br>
+<div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>OwnerName</th>
+        <th>UserName</th>
+        <th>Password</th>
+        <th>Roles</th>
+        </thead>
+        <tr th:each="owner : ${allUsers}">
+            <td th:text=" ${owner.id}"></td>
+            <td th:text="${owner.nameOwner}"></td>
+            <td th:text="${owner.username}"></td>
+            <td th:text="${owner.password}"></td>
+            <td>
+                <div th:each="role: ${owner.roles}">
+                    <p th:text="${role.name}"></p>
+                </div>
+            </td>
+            <!--                <td>-->
+            <!--                    <form action="${pageContext.request.contextPath}/admin" method="post">-->
+            <!--                        <input type="hidden" name="userId" value="${user.id}"/>-->
+            <!--                        <input type="hidden" name="action" value="delete"/>-->
+            <!--                        <button type="submit">Delete</button>-->
+            <!--                    </form>-->
+            <!--                </td>-->
+        </tr>
+    </table>
+    <a href="/">Start page</a>
+</div>
+</body>
+</html>

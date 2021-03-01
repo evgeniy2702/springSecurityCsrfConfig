@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Book</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+        th {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+<div th:object="${book}">
+    <form th:action="@{/book/update/{id}( id = ${book.getId()} )}"  method="post" >
+        <h2>Update this book :</h2>
+        <table>
+            <tr>
+                <th>Id book</th>
+                <td th:text="*{id}"></td>
+            </tr>
+            <tr>
+                <th>Name of Book</th>
+                <td><input type="text"  th:field="*{name}"/></td>
+                <th>Buyer ID</th>
+                <th>Buyer name</th>
+                <th>Owners</th>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td><input type="text" th:name = "author" th:field="*{author}"/></td>
+                <td><input type="text" th:field="*{buyer.id}"/></td>
+                <td><input type="text" th:field="*{buyer.nameBuyer}"/></td>
+                <td >
+                    <table>
+                        <tr>
+                            <td>Id count</td>
+                            <td>Id Owner</td>
+                            <td>Name Owner</td>
+                        </tr>
+                        <tr th:each="owner, ownerStat: *{owners}">
+                            <td th:text="${ownerStat.count}"></td>
+                            <td th:text="*{owners[__${ownerStat.index}__].id}"></td>
+                            <td th:text="*{owners[__${ownerStat.index}__].nameOwner}"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td><input type="number" th:field="*{year}"/></td>
+            </tr>
+            <tr>
+                <th>Stile</th>
+                <td><input type="text" th:field="*{stileOfBook}"/></td>
+            </tr>
+            <tr>
+                <th>Number of pages</th>
+                <td><input type="number" th:field="*{numPages}"/></td>
+            </tr>
+            <tr>
+                <th>Description of book</th>
+                <td><input type="text" th:field="*{description}"/></td>
+            </tr>
+        </table>
+
+        <p><input type="submit" value="Submit"/>
+
+    </form>
+
+    <div>
+        <h2>Delete current owner</h2>
+        <table>
+            <tr>
+                <td>Id count</td>
+                <td>Id Owner</td>
+                <td>Name Owner</td>
+                <td>Delete</td>
+            </tr>
+            <tr th:each="owner, ownerStat: *{owners}">
+                <td th:text="${ownerStat.count}"></td>
+                <td th:text="*{owners[__${ownerStat.index}__].id}"></td>
+                <td th:text="*{owners[__${ownerStat.index}__].nameOwner}"></td>
+                <td><a th:href="@{/book/delete/relation(book_id = *{id}, owner_id = *{owners[__${ownerStat.index}__].id} )}">Delete</a></td>
+            </tr>
+        </table>
+        <h2>Add owner relation</h2>
+        <form th:action="@{/book/add/owner}"  method="get">
+            <table>
+                <tr>
+                    <td>Input name owner</td>
+                </tr>
+                <tr>
+                    <input type="hidden" th:name="id" th:value="*{id}"/>
+                    <td><input type="text" th:name="owner_book" th:value="${owner_book}"/></td>
+                </tr>
+            </table>
+            <p><input type="submit" value="Add relation"></p>
+        </form>
+    </div>
+</div>
+<p><a th:href="@{/}" >Start page</a></p>
+
+
+</body>
+</html>

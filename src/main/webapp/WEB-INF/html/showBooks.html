@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show_Books</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+
+    <style>
+        table, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+
+<form action="/leave/authentication" method="post">
+    <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="LogOut">
+</form>
+<br>
+<form action="/admin" method="post">
+    <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="ADMIN">
+</form>
+<br>
+<form action="/book/new" method="post">
+    <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="Add Book USER">
+</form>
+<br>
+<h2>List of books in our Librery :</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name of Book</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>Stile</th>
+        <th>Number of pages</th>
+        <th>Description of book</th>
+        <th>Buyer</th>
+        <th>Owners</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="book: ${books}">
+        <td th:text="${book.id}">
+        <td><a th:href="@{ book/{id}( id= ${ book.getId() } ) }" th:text="${book.name}">Name</a></td>
+        <td th:text="${book.author}">Author</td>
+        <td th:text="${book.year}">Year</td>
+        <td th:text="${book.stileOfBook}">Stile of Book</td>
+        <td th:text="${book.numPages}">Number of Pages</td>
+        <td th:text="${book.description}">Description</td>
+        <td th:text="${book.buyer.getNameBuyer()}">Buyer</td>
+        <td>
+            <div th:each="owner: ${book.owners}">
+                <p th:text="${owner.nameOwner}"></p>
+            </div>
+        </td>
+        <td><a th:href="@{ /book/delete/{id}( id= ${ book.getId() } ) }">Delete</a></td>
+    </tr>
+
+</table>
+
+<!--<p><a th:href="@{/user}">Add book</a></p>-->
+<p><a th:href="@{/book/search}">Search book</a></p>
+
+</body>
+</html>

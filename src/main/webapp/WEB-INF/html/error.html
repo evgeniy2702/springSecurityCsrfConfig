@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${status}">Error</title>
+</head>
+<body>
+<div>
+    <p>Mistake : <span th:text="${status}"></span></p>
+    <p th:text="${msg}"></p>
+    <div   th:if="${status} == 401">
+        <form th:action="@{/login/process}" th:method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="submit" th:value="Authorized"/>
+        </form>
+    </div>
+    <div th:unless="${status} == 401">
+        <a th:href="@{/}">Show books</a>
+    </div>
+</div>
+</body>
+</html>

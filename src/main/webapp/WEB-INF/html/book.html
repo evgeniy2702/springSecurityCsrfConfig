@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Book_info</title>
+    <style>
+        .error{
+            color: red;
+        }
+        table, th, td {
+            border: 1px solid;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h2>Book info :</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <td th:text="${book.id}"></td>
+        <th>Buyer ID</th>
+        <th>Buyer name</th>
+        <th>Owners</th>
+    </tr>
+    <tr>
+        <th>Name of Book</th>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.buyer.id}"></td>
+        <td th:text="${book.buyer.nameBuyer}"></td>
+        <td>
+            <div th:if="${! book.owners.isEmpty()}"></div>
+            <table>
+                <tr>
+                    <td>Id count</td>
+                    <td>Id Owner</td>
+                    <td>Name Owner</td>
+                </tr>
+                <tr th:each="owner, ownerStat: ${book.owners}">
+                    <td th:text="${ownerStat.count}"></td>
+                    <td th:text="${book.owners[__${ownerStat.index}__].id}"></td>
+                    <td th:text="${book.owners[__${ownerStat.index}__].nameOwner}"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <th>Author</th>
+        <td th:text="${book.author}"></td>
+    </tr>
+    <tr>
+        <th>Year</th>
+        <td th:text="${book.year}"></td>
+    </tr>
+    <tr>
+        <th>Stile</th>
+        <td th:text="${book.stileOfBook}"></td>
+    </tr>
+    <tr>
+        <th>Number of pages</th>
+        <td th:text="${book.numPages}"></td>
+    </tr>
+    <tr>
+        <th>Description of book</th>
+        <td th:text="${book.description}"></td>
+    </tr>
+    <tr>
+        <th>Delete</th>
+        <td><a th:href="@{/book/delete/{id}( id= ${ book.getId() } ) }">Delete</a></td>
+    </tr>
+</table>
+
+<p><a th:href="@{/book/update/{id}( id= ${ book.getId() } ) }"> Update book</a></p>
+<p><a th:href="@{/}" >Start page</a></p>
+
+
+</body>
+</html>

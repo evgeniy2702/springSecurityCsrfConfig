@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        body{
+            display: grid;
+            justify-content: center;
+            align-content: center;
+        }
+        div{
+            width: -moz-max-content;
+            height: auto;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding-left: 10px;
+            padding-bottom: 20px;
+            padding-right: 10px;
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<h1>Registration</h1>
+<div>
+    <form action="/registration" method = "post">
+        <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <br>
+        <label for="nameOwner">Owner name</label>
+        <input type="text" name="nameOwner" id="nameOwner">
+        <br>
+        <label for="username">Username(email) :</label>
+        <input type="email" name="username" id="username">
+        <br>
+        <label for="password">Password  :</label>
+        <input type="password" name="password" id="password">
+        <br>
+        <br>
+        <input type="submit" value="Registration">
+        <br>
+    </form>
+</div>
+</body>
+</html>

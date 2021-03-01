@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/book/add}" th:object="${book}" method="post" >
+    <h2>Add book :</h2>
+    <table>
+        <tr>
+            <th>Name of Book</th>
+            <td><input type="text"  th:field="*{name}"/></td>
+            <th>Buyer ID</th>
+            <td><input type="text" th:field="*{buyer.id}"/></td>
+            <th>Buyer name</th>
+            <td><input type="text" th:field="*{buyer.nameBuyer}"/></td>
+            <th>Owners</th>
+            <td >
+                <table>
+                    <tr>
+                        <td>Id count</td>
+                        <td>Id Owner</td>
+                        <td>Name Owner</td>
+                    </tr>
+                    <tr th:each="owner, ownerStat: *{owners}">
+                        <td th:text="${ownerStat.count}"></td>
+                        <td><input type="text" th:field="*{owners[__${ownerStat.index}__].id}"/></td>
+                        <td><input type="text" th:field="*{owners[__${ownerStat.index}__].nameOwner}"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th>Author</th>
+            <td><input type="text" th:field="*{author}"/></td>
+        </tr>
+        <tr>
+            <th>Year</th>
+            <td><input type="number" th:field="*{year}"/></td>
+        </tr>
+        <tr>
+            <th>Stile</th>
+            <td><input type="text" th:field="*{stileOfBook}"/></td>
+        </tr>
+        <tr>
+            <th>Number of pages</th>
+            <td><input type="number" th:field="*{numPages}"/></td>
+        </tr>
+        <tr>
+            <th>Description of book</th>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+    </table>
+    <p><input type="submit" value="Submit"/>
+</form>
+
+<div th:if="${not #lists.isEmpty(bookDB)}">
+    <table>
+        <h3 th:text="${string}"></h3>
+        <tr>
+            <th>Id</th>
+            <th>Name of Book</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Stile</th>
+            <th>Number of pages</th>
+            <th>Description of book</th>
+            <th>Buyer</th>
+            <th>Owners</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="book: ${bookDB}">
+            <td th:text="${book.id}">
+            <td th:text="${book.name}">Name</td>
+            <td th:text="${book.author}">Author</td>
+            <td th:text="${book.year}">Year</td>
+            <td th:text="${book.stileOfBook}">Stile of Book</td>
+            <td th:text="${book.numPages}">Number of Pages</td>
+            <td th:text="${book.description}">Description</td>
+            <td th:text="${book.buyer.getNameBuyer()}">Buyer</td>
+            <td>
+                <div th:each="owner: ${book.owners}">
+                    <p th:text="${owner.nameOwner}"></p>
+                </div>
+            </td>
+            <td><a th:href="@{ /book/delete/{id}( id= ${ book.getId() } ) }">Delete</a></td>
+        </tr>
+    </table>
+</div>
+
+<p><a th:href="@{/}" >Start page</a></p>
+
+</body>
+</html>

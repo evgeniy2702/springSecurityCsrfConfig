@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <style>
+        body{
+            display: grid;
+            justify-content: center;
+            align-content: center;
+        }
+        div{
+            width: -moz-max-content;
+            height: auto;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding-left: 10px;
+            padding-bottom: 20px;
+            padding-right: 10px;
+            text-align: center;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form action="/login/process" method="post">
+        <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <h2>Sign in : </h2>
+        <br>
+        <label for="username">Username :</label>
+        <input type="email" name="username" id="username">
+        <br>
+        <label for="password">Password  :</label>
+        <input type="password" name="password" id="password">
+        <br>
+        <label for="check">Remember me</label>
+        <input type="checkbox" name="_spring_security_remember_me" id="check"/>
+        <br>
+        <input type="submit" value="Sign in">
+        <br>
+        <div th:if="${error}">
+            <span style="color: red">Bad credentials</span>
+        </div>
+        <div th:if="${admin}">
+            <span style="color: red">You need ADMIN rigths</span>
+        </div>
+        <br>
+        <a href="/registration">Registration</a>
+    </form>
+</div>
+</body>
+</html>

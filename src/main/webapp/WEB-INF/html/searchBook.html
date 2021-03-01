@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search_Book</title>
+    <style>
+        .error{
+            color: red;
+        }
+        table, th, td {
+            border: 1px solid;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+
+<h2>Search book :</h2>
+<form th:object="${book}" th:action="@{/books}" method="get">
+    <input type="text" name="search"/>
+    <input type="submit" value="Search"/>
+
+    <div th:if="${not #lists.isEmpty(booksSearch)}">
+        <h2>Books List</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name of Book</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>Stile</th>
+                <th>Number of pages</th>
+                <th>Description of book</th>
+                <th>Buyer</th>
+                <th>Owners</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="book: ${booksSearch}">
+                <td th:text="${book.id}">
+                <td><a th:href="@{ book/{id}( id= ${ book.getId() } ) }" th:text="${book.name}">Name</a></td>
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.year}">Year</td>
+                <td th:text="${book.stileOfBook}">Stile of Book</td>
+                <td th:text="${book.numPages}">Number of Pages</td>
+                <td th:text="${book.description}">Description</td>
+                <td th:text="${book.buyer.getNameBuyer()}">Buyer</td>
+                <td>
+                    <div th:each="owner: ${book.owners}">
+                        <p th:text="${owner.nameOwner}"></p>
+                    </div>
+                </td>
+                <td><a th:href="@{/book/delete/{id}( id= ${ book.getId() } ) }">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:if="${booksSearch != null and booksSearch.isEmpty()}">
+        <h1>Please try again. We can not search anything for your request</h1>
+    </div>
+</form>
+
+<p><a th:href="@{/book/new}">Add book</a></p>
+<p><a th:href="@{/}" >Start page</a></p>
+
+</body>
+</html>
