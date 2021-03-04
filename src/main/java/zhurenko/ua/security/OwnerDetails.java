@@ -16,7 +16,7 @@ public class OwnerDetails extends Owner implements UserDetails {
     public OwnerDetails(Owner owner) {
         this.setId(owner.getId());
         this.setNameOwner(owner.getNameOwner());
-        this.setUserName(owner.getUsername());
+        this.setUsername(owner.getUsername());
         this.setPassword(owner.getPassword());
         this.setRoles(owner.getRoles());
     }

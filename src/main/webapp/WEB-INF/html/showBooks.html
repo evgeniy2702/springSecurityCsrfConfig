@@ -18,12 +18,27 @@
     </style>
 </head>
 <body>
-
-<form action="/leave/authentication" method="post">
-    <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input type="submit" value="LogOut">
-</form>
+<div>
+    <div th:if="${role.equalsIgnoreCase('anonymousUser')}">
+        <form action="/login" method="get">
+            <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="submit" value="Login">
+        </form>
+        <form action="/registration" method="get">
+            <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="submit" value="Registration">
+        </form>
+    </div>
+    <div th:unless="${role.equalsIgnoreCase('anonymousUser')}">
+        <form action="/leave/authentication" method="post">
+            <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="submit" value="LogOut">
+        </form>
+    </div>
+</div>
 <br>
 <form action="/admin" method="post">
     <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->

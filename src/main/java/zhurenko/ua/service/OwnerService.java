@@ -38,7 +38,8 @@ public class OwnerService {
         if(ownerFromDB != null){
             return false;
         }
-        owner.setRoles(Set.of(new Role(owner.getRoles().size(), "ROLE_USER")));
+        System.out.println(owner.getRoles().size());
+        owner.setRoles(Set.of(new Role(owner.getRoles().size()+1, "ROLE_USER")));
         owner.setPassword(passwordEncoder.encode(owner.getPassword()));
         ownerJPA.saveAndFlush(owner);
         return true;

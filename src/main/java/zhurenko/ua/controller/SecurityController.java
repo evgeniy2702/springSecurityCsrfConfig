@@ -20,7 +20,17 @@ public class SecurityController {
         this.bookService = bookService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+
+    @GetMapping("/login")
+     public String LoginPage(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(!auth.getPrincipal().toString().equalsIgnoreCase("anonymousUser")){
+            return "redirect:/";
+        }
+        return "signin";
+    }
+
+    @PostMapping(value = "/login")
     public String login(@RequestParam(name = "error", required = false) Boolean error,
                         Model model){
         if(Boolean.TRUE.equals(error)){
@@ -30,7 +40,7 @@ public class SecurityController {
     }
 
     @GetMapping("/registration")
-    public String registrationNew(){
+    public String registrationPage(){
         return"signup";
     }
 

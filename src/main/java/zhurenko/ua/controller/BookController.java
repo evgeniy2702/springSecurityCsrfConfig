@@ -26,12 +26,8 @@ public class BookController {
     public String showBook(Model model) {
         model.addAttribute("books", bookService.getAllBooks());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null) {
-            System.out.println("showBook null");
-        }
-        else {
-            System.out.println("showBook " + auth.toString());
-        }
+        String principal = auth.getPrincipal().toString();
+        model.addAttribute("role", principal);
         return "showBooks";
     }
 
@@ -45,13 +41,6 @@ public class BookController {
 
     @GetMapping("/book/new")
     public String addBookGet(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null) {
-            System.out.println("book/new null");
-        }
-        else {
-            System.out.println("book/new " + auth.toString());
-        }
         model.addAttribute("book", bookService.addNewBook());
         model.addAttribute("default", "Default value");
         return "addBook";
@@ -59,13 +48,6 @@ public class BookController {
 
     @PostMapping("/book/new")
     public String addBookPost(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null) {
-            System.out.println("book/new null");
-        }
-        else {
-            System.out.println("book/new " + auth.toString());
-        }
         model.addAttribute("book", bookService.addNewBook());
         model.addAttribute("default", "Default value");
         return "addBook";
