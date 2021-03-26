@@ -21,13 +21,9 @@
 <div>
     <div th:if="${role.equalsIgnoreCase('anonymousUser')}">
         <form action="/login" method="get">
-            <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="submit" value="Login">
         </form>
         <form action="/registration" method="get">
-            <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="submit" value="Registration">
         </form>
     </div>
@@ -40,9 +36,7 @@
     </div>
 </div>
 <br>
-<form action="/admin" method="post">
-    <!--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+<form action="/admin" method="get">
     <input type="submit" value="ADMIN">
 </form>
 <br>
